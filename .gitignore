@@ -1,0 +1,10 @@
+src/ClientInfoLib/_build/
+src/DatabaseManagerLib/DatabaseManagerLib.pro.user
+src/ClientInfoLib/ClientInfoLib.pro.user
+src/DatabaseManagerLib/_build/
+src/YAServerApp/YAServerApp.pro.user
+src/YAServerApp/_build/
+src/YAServerLib/_build/
+src/YAServerLib/YAServerLib.pro.user
+_build/
+YAServer.pro.user
