@@ -12,10 +12,3 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp
 
-release: DESTDIR = $$PWD/../../bin/YAServer/release
-debug:   DESTDIR = $$PWD/../../bin/YAServer/debug
-
-OBJECTS_DIR = $$DESTDIR/obj
-MOC_DIR = $$DESTDIR/moc
-RCC_DIR = $$DESTDIR/qrc
-UI_DIR = $$DESTDIR/ui
