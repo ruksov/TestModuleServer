@@ -15,4 +15,3 @@ YaServerLib.file = YAServerLib/YaServerLib.pro
 
 YAServerApp.depends = ClientInfoLib DatabaseManagerLib YAServerLib
 
-OBJECTS_DIR = ./obj
