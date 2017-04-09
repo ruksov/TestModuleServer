@@ -1,6 +1,6 @@
 #pragma once
 
-#include "databasemanager.h"
+#include "src/DatabaseManagerLib/databasemanager.h"
 #include "dialog.h"
 
 namespace YAServer{

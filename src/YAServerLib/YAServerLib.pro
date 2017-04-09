@@ -3,10 +3,10 @@
 # Project created by QtCreator 2017-04-08T16:00:48
 #
 #-------------------------------------------------
-include ($$PWD/../DatabaseManagerLib/DatabaseManagerLib.pri)
-include ($$PWD/../ClientInfoLib/ClientInfoLib.pri)
 
-QT       += widgets network sql
+include($$PWD/../../Global.pri)
+
+QT       += gui network sql
 
 TARGET = YAServerLib
 TEMPLATE = lib
@@ -40,5 +40,4 @@ unix {
 FORMS += \
     dialog.ui
 
-DISTFILES += \
-    YAServerLib.pri
+DISTFILES +=

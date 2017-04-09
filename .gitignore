@@ -8,3 +8,4 @@ src/YAServerLib/_build/
 src/YAServerLib/YAServerLib.pro.user
 _build/
 YAServer.pro.user
+bin/

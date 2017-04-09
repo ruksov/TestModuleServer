@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
-#include "clientinfo.h"
+#include "src/ClientInfoLib/clientinfo.h"
+
 
 namespace DatabaseManager {
 

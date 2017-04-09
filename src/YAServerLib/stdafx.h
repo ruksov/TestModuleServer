@@ -4,5 +4,5 @@
 #include <QtSql>
 #include <QVector>
 #include <QMap>
-#include <QDialog>
+#include <QtWidgets/QDialog>
 #include <QObject>

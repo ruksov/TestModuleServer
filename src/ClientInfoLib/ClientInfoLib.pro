@@ -30,5 +30,4 @@ unix {
     INSTALLS += target
 }
 
-DISTFILES += \
-    ClientInfoLib.pri
+DISTFILES +=

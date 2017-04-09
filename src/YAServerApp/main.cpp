@@ -1,5 +1,5 @@
 #include <QApplication>
-#include "yaserver.h"
+#include "src/YAServerLib/yaserver.h"
 
 int main(int argc, char *argv[])
 {

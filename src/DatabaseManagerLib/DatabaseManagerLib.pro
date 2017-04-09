@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-include($$PWD/../ClientInfoLib/ClientInfoLib.pri)
+include($$PWD/../../Global.pri)
 
 QT       += sql network
 
@@ -36,6 +36,4 @@ unix {
     INSTALLS += target
 }
 
-DISTFILES += \
-    DatabaseManagerLib.pri
 
