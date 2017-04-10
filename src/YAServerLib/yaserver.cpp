@@ -3,7 +3,7 @@
 
 
 namespace YAServer{
-YAServer::YAServer(QObject *parent) : QObject(parent)
+YAServer::YAServer(QObject *parent) : QObject(parent), m_nNextBlockSize(0)
 {
 
 }

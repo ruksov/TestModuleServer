@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QTcpServer>
+
 #include "databasemanager.h"
 #include "serverdialog.h"
 

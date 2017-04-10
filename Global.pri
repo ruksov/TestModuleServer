@@ -8,7 +8,3 @@ release: DESTDIR = $$PWD/bin/release
 debug:   DESTDIR = $$PWD/bin/debug
 
 OBJECTS_DIR = $$PWD/obj
-
-
-
-

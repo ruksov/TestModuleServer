@@ -1,6 +1,11 @@
 #pragma once
-#include "stdafx.h"
+
+#include <QtSql>
+
+
 #include "clientinfo.h"
+
+
 
 
 namespace DatabaseManager {
