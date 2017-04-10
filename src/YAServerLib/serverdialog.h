@@ -3,20 +3,21 @@
 
 
 namespace Ui {
-class Dialog;
+class ServerDialog;
 }
 
-class Dialog : public QDialog
+class ServerDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Dialog(QWidget *parent = 0);
+    explicit ServerDialog(QWidget *parent = 0);
     void SetIpInfo(QString strIp);
     void WriteToTextBrowser(QString strMsg);
-    ~Dialog();
+    ~ServerDialog();
 
 private:
-    Ui::Dialog *ui;
+    Ui::ServerDialog *ui;
 };
+
 

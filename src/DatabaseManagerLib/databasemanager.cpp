@@ -1,5 +1,6 @@
-#include "databasemanager.h"
 #include "stdafx.h"
+#include "databasemanager.h"
+
 
 namespace DatabaseManager {
 

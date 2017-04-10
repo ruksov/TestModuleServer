@@ -5,8 +5,9 @@
 #-------------------------------------------------
 
 include($$PWD/../../Global.pri)
+DESTDIR = $$LIBDIR
 
-QT       += gui network sql
+QT       += gui sql network widgets
 
 TARGET = YAServerLib
 TEMPLATE = lib
@@ -17,6 +18,12 @@ CONFIG += staticlib
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+INCLUDEPATH += $$DBMANAGER_L
+
+LIBS += -L$$LIBDIR
+
+LIBS += \
+-lDatabaseManagerLib
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -25,19 +32,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 PRECOMPILED_HEADER = stdafx.h
 
 SOURCES += \
-    dialog.cpp \
-    yaserver.cpp
+    yaserver.cpp \
+    serverdialog.cpp
 
 HEADERS += \
     stdafx.h \
-    dialog.h \
-    yaserver.h
+    yaserver.h \
+    serverdialog.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
 FORMS += \
-    dialog.ui
+    serverdialog.ui
 
 DISTFILES +=

@@ -1,5 +1,6 @@
-#include "yaserver.h"
 #include "stdafx.h"
+#include "yaserver.h"
+
 
 namespace YAServer{
 YAServer::YAServer(QObject *parent) : QObject(parent)

@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 include($$PWD/../../Global.pri)
+DESTDIR = $$LIBDIR
 
 QT       += sql network
 
@@ -30,7 +31,8 @@ PRECOMPILED_HEADER = stdafx.h
 SOURCES += databasemanager.cpp
 
 HEADERS += databasemanager.h \
-    stdafx.h
+    stdafx.h \
+    clientinfo.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

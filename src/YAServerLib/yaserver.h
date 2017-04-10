@@ -1,11 +1,9 @@
 #pragma once
 
-#include "src/DatabaseManagerLib/databasemanager.h"
-#include "dialog.h"
+#include "databasemanager.h"
+#include "serverdialog.h"
 
 namespace YAServer{
-
-
 
 enum
 {
@@ -37,7 +35,7 @@ private:
     QTcpServer* m_pTcpServer;
     DatabaseManager::DatabaseManager m_dbManager;
     QMap<QString, ClientInfo::ClientInfo> m_mapClients;
-    Dialog m_dialog;
+    ServerDialog m_dialog;
     quint32 m_nNextBlockSize;
 
 
