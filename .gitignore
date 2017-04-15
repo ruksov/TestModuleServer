@@ -11,3 +11,4 @@ YAServer.pro.user
 bin/
 obj/
 lib/
+Security/OpenSslDemo/OpenSslDemo.pro.user

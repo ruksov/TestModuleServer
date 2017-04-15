@@ -6,10 +6,10 @@ Chiper::Chiper(QObject *parent) : QObject(parent)
     RSA* rsa = RSA_new();
     BIGNUM* bn = BN_new();
 
-    BIO* pemPublic = BIO_new_file("public.pem", "w");
-    BIO* pemPrivate = BIO_new_file("private.pem","w");
+//    BIO* pemPublic = BIO_new_file("public.pem", "w");
+//    BIO* pemPrivate = BIO_new_file("private.pem","w");
 
-    BIO* bio = BIO_new(BIO_s_mem());
+//    BIO* bio = BIO_new(BIO_s_mem());
 
     if(!BN_set_word(bn, RSA_F4))
     {
@@ -36,8 +36,8 @@ Chiper::Chiper(QObject *parent) : QObject(parent)
 //        qCritical()<<"Could not write public key to pem"<<ERR_error_string(ERR_get_error(),NULL);
 //    }
 
-    BIO_free(pemPublic);
-    BIO_free(pemPrivate);
+//    BIO_free(pemPublic);
+//    BIO_free(pemPrivate);
 
     //m_ptrPrivKey = GetPrivateKey("private.pem");
 //    m_ptrPrivKey = PEM_read_bio_RSAPrivateKey(bio, NULL, NULL, NULL);
@@ -119,17 +119,17 @@ RSA *Chiper::GetPrivateKey(QString filename)
 
 QByteArray Chiper::EncryptRSA(RSA *key, QByteArray &data)
 {
-    BIO* bio = BIO_new(BIO_s_mem());
-    BIO_write(bio, (void*)m_PublicKey.toStdString().c_str(), m_PublicKey.length());
-    RSA* rsa =d2i_RSAPublicKey_bio(bio, NULL);
+//    BIO* bio = BIO_new(BIO_s_mem());
+//    BIO_write(bio, (void*)m_PublicKey.toStdString().c_str(), m_PublicKey.length());
+//    RSA* rsa =d2i_RSAPublicKey_bio(bio, NULL);
     QByteArray buffer;
     int dataSize = data.size();
     const unsigned char* str =(const unsigned char*)data.constData();
-    int keySize = RSA_size(rsa);
+    int keySize = RSA_size(key);
 
     unsigned char* ed = (unsigned char*)malloc(keySize);
 
-    int resultLen = RSA_public_encrypt(dataSize, str, ed, rsa, RSA_PKCS1_OAEP_PADDING);
+    int resultLen = RSA_public_encrypt(dataSize, str, ed, key, RSA_PKCS1_OAEP_PADDING);
 
     if(resultLen == -1)
     {
@@ -139,8 +139,8 @@ QByteArray Chiper::EncryptRSA(RSA *key, QByteArray &data)
 
     buffer = QByteArray(reinterpret_cast<char*>(ed), resultLen);
 
-    RSA_free(rsa);
-    BIO_free(bio);
+//    RSA_free(rsa);
+//    BIO_free(bio);
     return buffer;
 return 0;
 }
