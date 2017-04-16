@@ -11,26 +11,28 @@
 #include <memory>
 #include <qDebug>
 
-typedef  std::unique_ptr<RSA, decltype(&::RSA_free)> RSA_ptr;
-typedef  std::unique_ptr<BIO, decltype(&::BIO_free)> BIO_ptr;
+typedef  std::unique_ptr<RSA, decltype(&::RSA_free)> ptrRSA;
+typedef  std::unique_ptr<BIO, decltype(&::BIO_free)> ptrBIO;
 
 class CryptoClass
 {
 public:
     CryptoClass();
 
-    /**
-     * @brief GetPublicKey
-     * @return pointer on public RSA key
-     */
-    QString GetPublicKey();
+    ~CryptoClass();
 
     /**
-     * @brief EncryptData
+     * @brief GetPublicKey
+     * @return PEM encoded Public key
+     */
+    QByteArray GetPublicKey();
+
+    /**
+     * @brief Encrypt data used external Public key
      * @param referance on data for encrypt
      * @return encrypted data
      */
-    QByteArray EncryptData(QString publicKey, QByteArray &data);
+    QByteArray EncryptData(QByteArray publicKey, QByteArray &data);
 
     /**
      * @brief DecryptData
@@ -43,9 +45,8 @@ private:
 
     // RSA key pair
 
-    RSA_ptr m_PublicKey;
-    RSA_ptr m_PrivateKey;
+    ptrRSA m_PublicKey;
+    ptrRSA m_PrivateKey;
 
-    QString m_StrPublicKey;
 };
 

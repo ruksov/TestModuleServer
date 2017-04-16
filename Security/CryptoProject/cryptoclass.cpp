@@ -7,10 +7,8 @@ CryptoClass::CryptoClass() : m_PrivateKey(RSA_new(), RSA_free), m_PublicKey(RSA_
     OpenSSL_add_all_algorithms();
     OPENSSL_init_ssl(OPENSSL_INIT_LOAD_CONFIG, NULL);
 
-    RSA_ptr rsaPair(RSA_new(), RSA_free);
+    ptrRSA rsaPair(RSA_new(), RSA_free);
     std::unique_ptr<BIGNUM, decltype(&::BN_free)> pBignum(BN_new(), BN_free);
-    BIO_ptr bioPrivate(BIO_new(BIO_s_mem()), BIO_free);
-    BIO_ptr bioPublic(BIO_new(BIO_s_mem()), BIO_free);
 
 
     if(!BN_set_word(pBignum.get(), RSA_F4))
@@ -24,38 +22,72 @@ CryptoClass::CryptoClass() : m_PrivateKey(RSA_new(), RSA_free), m_PublicKey(RSA_
         qCritical()<<"Could not generate RSA key pair"<<ERR_error_string(ERR_get_error(),NULL);
     }
 
-    m_PrivateKey = RSA_ptr(RSAPrivateKey_dup(rsaPair.get()), RSA_free);
-    m_PublicKey = RSA_ptr(RSAPublicKey_dup(rsaPair.get()), RSA_free);
-
-
-
-//    //Write to bio buffer RSA private key
-//    if(!PEM_write_bio_RSAPrivateKey(bioPrivate.get(), rsaPair.get(), NULL, NULL,0, NULL, NULL))
-//    {
-//        qCritical()<<"Could not write private key to pem"<<ERR_error_string(ERR_get_error(),NULL);
-//    }
-
-
-//    //Write to bio buffer RSA public key
-//    if(!PEM_write_bio_RSAPublicKey(bioPublic.get(), rsaPair.get()))
-//    {
-//        qCritical()<<"Could not write public key to pem"<<ERR_error_string(ERR_get_error(),NULL);
-//    }
-
-
-
-    BUF_MEM* ptrBio = NULL;
-    RSA_print(bioPublic.get(), m_PublicKey.get(),0);
-
-    BIO_get_mem_ptr(bioPublic.get(), &ptrBio);
-
-    m_StrPublicKey = QString::fromUtf8(ptrBio->data);
-
+    m_PrivateKey = ptrRSA(RSAPrivateKey_dup(rsaPair.get()), RSA_free);
+    m_PublicKey = ptrRSA(RSAPublicKey_dup(rsaPair.get()), RSA_free);
 }
 
-QString CryptoClass::GetPublicKey()
+CryptoClass::~CryptoClass()
 {
-    return m_StrPublicKey;
+    ERR_free_strings();
+}
+
+QByteArray CryptoClass::GetPublicKey()
+{
+    QByteArray PublicKeyByte;
+    ptrBIO bio(BIO_new(BIO_s_mem()), BIO_free);
+    BUF_MEM* pBio = NULL;
+
+    PEM_write_bio_RSAPublicKey(bio.get(), m_PublicKey.get());
+    BIO_get_mem_ptr(bio.get(), &pBio);
+
+    PublicKeyByte.append(pBio->data);
+    return PublicKeyByte;
+}
+
+QByteArray CryptoClass::EncryptData(QByteArray publicKey, QByteArray &data)
+{
+    QByteArray buffer;
+    int dataLen = data.size();
+    const unsigned char* str = static_cast<unsigned char*>(static_cast<void*>(data.data()));
+
+    //Read Public Key from QByteArray to RSA struct
+    ptrBIO pBio (BIO_new(BIO_s_mem()), BIO_free);
+    BIO_write(pBio.get(), publicKey.constData(), publicKey.length());
+    ptrRSA rsaKey(PEM_read_bio_RSAPublicKey(pBio.get(), NULL, NULL, NULL), RSA_free);
+
+    int keyLen = RSA_size(rsaKey.get());
+    unsigned char* encryptedData = static_cast<unsigned char*>(malloc(keyLen));
+
+    int resultLen = RSA_public_encrypt(dataLen, str, encryptedData, rsaKey.get(), RSA_PKCS1_OAEP_PADDING);
+
+    if(resultLen == -1)
+    {
+        qCritical()<<"Could not encrypt: "<<ERR_error_string(ERR_get_error(),NULL);
+        return buffer;
+    }
+
+    buffer = QByteArray(static_cast<char*>(static_cast<void*>(encryptedData)), resultLen);
+
+    return buffer;
+}
+
+QByteArray CryptoClass::DecryptData(QByteArray &data)
+{
+    QByteArray buffer;
+
+    const unsigned char* str = static_cast<unsigned char*>(static_cast<void*>(data.data()));
+    int keyLen = RSA_size(m_PrivateKey.get());
+
+    unsigned char* decryptedData = static_cast<unsigned char*>(malloc(keyLen));
+    int resultLen = RSA_private_decrypt(keyLen, str, decryptedData, m_PrivateKey.get(), RSA_PKCS1_OAEP_PADDING);
+    if(resultLen == -1)
+    {
+        qCritical()<<"Could not decrypt: "<<ERR_error_string(ERR_get_error(),NULL);
+        return buffer;
+    }
+
+    buffer = QByteArray(static_cast<char*>(static_cast<void*>(decryptedData)), resultLen);
+    return buffer;
 }
 
 
