@@ -14,3 +14,4 @@ lib/
 Security/OpenSslDemo/OpenSslDemo.pro.user
 Security/CryptoProject/config.pri
 Security/CryptoProject/googletest/
+Security/CryptoProject/CryptoProject.pro.user
