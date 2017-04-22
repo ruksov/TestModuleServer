@@ -1,5 +1,4 @@
 #include <QCoreApplication>
-#include <gtest/gtest.h>
 #include "cryptoclass.h"
 
 
