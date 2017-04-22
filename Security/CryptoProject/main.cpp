@@ -2,21 +2,6 @@
 #include "cryptoclass.h"
 
 
-struct CryptoTest : ::testing::Test
-{
-    CryptoClass* pCipher;
-
-    CryptoTest()
-    {
-        pCipher = new CryptoClass();
-    }
-
-    ~CryptoTest()
-    {
-        delete pCipher;
-    }
-};
-
 
 int main(int argc, char *argv[])
 {
