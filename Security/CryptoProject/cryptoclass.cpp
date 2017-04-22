@@ -1,3 +1,7 @@
+//#pragma comment(lib, "ws2_32.lib")
+//#pragma comment (lib, "crypt32")
+//#pragma comment (lib, "advapi32")
+//#pragma comment (lib, "user32")
 #include "cryptoclass.h"
 
 CryptoClass::CryptoClass() : m_PrivateKey(RSA_new(), RSA_free), m_PublicKey(RSA_new(), RSA_free)

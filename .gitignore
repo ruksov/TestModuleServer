@@ -12,3 +12,5 @@ bin/
 obj/
 lib/
 Security/OpenSslDemo/OpenSslDemo.pro.user
+Security/CryptoProject/config.pri
+Security/CryptoProject/googletest/

@@ -17,10 +17,30 @@ SOURCES += main.cpp \
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+INCLUDEPATH += $$PWD/../OpenSSL/include
 
-INCLUDEPATH += ../include
+win32-msvc*{
+CONFIG(debug, debug|release){
+message("debug")
+CRYPTOLIB = $$PWD/../OpenSSL/msvc32/debug/
+}
+CONFIG(release, debug|release){
+message("release")
+CRYPTOLIB = $$PWD/../OpenSSL/msvc32/release/
+}
+}else: win32-g++{
+CRYPTOLIB = $$PWD/../OpenSSL/mingw32/
+}
+message($$CRYPTOLIB)
 
-LIBS += -L../ -llibssl -llibcrypto
+
+
+LIBS += -L$$CRYPTOLIB
+LIBS += \
+-llibssl\
+-llibcrypto
+
+
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
