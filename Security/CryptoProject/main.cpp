@@ -1,7 +1,7 @@
 #include <QCoreApplication>
 #include "cryptoclass.h"
 
-
+#include <QSslSocket>
 
 int main(int argc, char *argv[])
 {
@@ -16,5 +16,7 @@ int main(int argc, char *argv[])
     qDebug()<<plain;
     qDebug()<<encrypted;
     qDebug()<<decrypted;
+    if(QSslSocket::supportsSsl())
+        qDebug()<<"SSL support\n";
     return a.exec();
 }
